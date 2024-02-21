@@ -25,6 +25,6 @@ export function CharacterCard(character) {
   </dl>
 </div>
 </li>`;
-
+  asda;
   main.appendChild(card);
 }
