@@ -1,4 +1,4 @@
-// import CharacterCard from "./components/CharacterCard/CharacterCard.js";
+import CharacterCard from "./components/CharacterCard/CharacterCard.js";
 // import NavButton from "./components/NavButton/NavButton.js";
 // import NavPagination from "./components/NavPagination/NavPagination.js";
 //import searchBar from "./components/SearchBar/SearchBar.js";
@@ -18,22 +18,23 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
-async function fetchCharacters() {
-  const response = await fetch('https://rickandmortyapi.com/api/character');
-  if(!response.ok){
-  console.log('Network error')
-  return null;
+export async function fetchCharacters() {
+  const response = await fetch("https://rickandmortyapi.com/api/character");
+  if (!response.ok) {
+    console.log("Network error");
+    return null;
   }
-  try{
-  const json = await response.json();
- 
-  const results=json.results
-  console.log(results)
-  return results;
-  }catch(error){
-  console.error(error);
-  alert("'There's a Network error!")
-  return null;
+  try {
+    const json = await response.json();
+    const results = json.results;
+    console.log(results);
+    return results;
+  } catch (error) {
+    console.error(error);
+    alert("'There's a Network error!");
+    return null;
   }
 }
 fetchCharacters();
+
+CharacterCard();
