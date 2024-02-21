@@ -28,3 +28,4 @@ export function CharacterCard(character) {
   asda;
   main.appendChild(card);
 }
+dggdgdgfgfg
