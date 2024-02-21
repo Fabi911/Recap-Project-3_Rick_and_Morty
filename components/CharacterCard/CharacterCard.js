@@ -1,12 +1,12 @@
 // Export function
 
 export default function CharacterCard(character) {
-  const { image, name, status, type, episode } = character;
+  const { image, name, status, type, episode } = character; // Destructer Charakter Eigenschaften
 
-  const card = document.createElement("li");
-  card.classList.add("character-card");
-
-  card.innerHTML = `  
+  const card = document.createElement("li"); // Neues Listenelement erstellen
+  card.classList.add("character-card"); // Css Klasse character-card hinzufügen
+  // Template Charakter Karte eingefügt
+  card.innerHTML = ` 
     <li class="card">
         <div class="card__image-container">
           <img
@@ -30,6 +30,6 @@ export default function CharacterCard(character) {
           </dl>
         </div>
       </li>`;
-
+  // Ausführen der Funktion
   return card;
 }

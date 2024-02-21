@@ -28,12 +28,13 @@ const navigation = document.querySelector('[data-js="navigation"]');
 
 // Const API Rick & Morthy link
 const characterURL = "https://rickandmortyapi.com/api/character";
+// ist die URL für die Rick and Morty API, von der die Charakterdaten abgerufen werden.
 
 // Bereits vorhandener Code
-// States
-let maxPage = 42;
-let page = 1;
-let searchQuery = "";
+// States // const musste zu let geändert werden.
+let maxPage = 42; // Die maximale Anzahl von Seiten (Seitenanzahl der API)
+let page = 1; // Die aktuelle Seite.
+let searchQuery = ""; // Die aktuelle Suchanfrage.
 
 // Konstante für die Searchbar
 const searchBar = SearchBar((event) => {
@@ -42,6 +43,9 @@ const searchBar = SearchBar((event) => {
   page = 1;
   fetchCharacters();
 });
+// Es wird eine Instanz der SearchBar-Komponente erstellt und mit einem Eventlistener versehen.
+// Der Eventlistener reagiert auf das Absenden des Suchformulars,
+// aktualisiert die Suchanfrage und ruft die fetchCharacters-Funktion auf.
 
 searchBarContainer.append(searchBar);
 
@@ -53,6 +57,9 @@ const prevButton = NavButton("prev", () => {
     fetchCharacters();
   }
 });
+
+// Es werden Instanzen der NavButton-Komponente für vorherige und nächste Seiten erstellt.
+// Die Eventlistener für die Buttons aktualisieren die Seitenzahl und rufen ebenfalls fetchCharacters auf.
 
 // Konstante für den NextButton
 const nextButton = NavButton("next", () => {
@@ -75,14 +82,21 @@ searchBar.addEventListener("submit", (event) => {
   fetchCharacters();
 });
 
+// Ein zusätzlicher Eventlistener für das Suchformular reagiert ebenfalls auf das Absenden des Formulars
+// und aktualisiert die Suchanfrage, um die Charaktere entsprechend zu filtern.
+
 // Konstante für Pagination
 const pagination = NavPagination();
+// Es wird eine Instanz der NavPagination-Komponente erstellt,
+// die die Informationen über die aktuelle Seite und die maximale Seitenanzahl anzeigt.
 
 navigation.append(prevButton, pagination, nextButton);
+// Die Navigationselemente (vorherige, Pagination und nächste Buttons) werden dem DOM hinzugefügt.
 
 // Async function
 
 async function fetchCharacters() {
+  // Abruf der Daten von der API
   try {
     const response = await fetch(
       `${characterURL}?page=${page}&name=${searchQuery}`
@@ -95,7 +109,7 @@ async function fetchCharacters() {
     const characters = data.results;
     //console.log("Charaters", characters);
 
-    cardContainer.innerHTML = "";
+    cardContainer.innerHTML = ""; // Leert den cardContainer
 
     characters.forEach((character) => {
       const card = CharacterCard(character);
@@ -110,3 +124,4 @@ async function fetchCharacters() {
 }
 
 fetchCharacters();
+// Die fetchCharacters-Funktion wird direkt nach dem Laden der Seite aufgerufen, um die ersten Charaktere anzuzeigen.
