@@ -1,5 +1,7 @@
 import { fetchCharacters } from "../../index.js";
 
+const cardContainer = document.querySelector('[data-js="card-container"]');
+
 export async function CharacterCard() {
   const characters = await fetchCharacters();
   characters.forEach((character) => {

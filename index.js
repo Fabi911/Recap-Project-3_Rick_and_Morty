@@ -1,4 +1,4 @@
-import CharacterCard from "./components/CharacterCard/CharacterCard.js";
+import { CharacterCard } from "./components/CharacterCard/CharacterCard.js";
 // import NavButton from "./components/NavButton/NavButton.js";
 // import NavPagination from "./components/NavPagination/NavPagination.js";
 //import searchBar from "./components/SearchBar/SearchBar.js";
