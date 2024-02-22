@@ -15,10 +15,13 @@ const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
 
-let maxPage= 42 //createMaxPages();
+//let maxPage= '';
 let page = 1;
 let searchQuery = "";
-pagination.textContent = page + " / " + maxPage;
+
+loadMaxPages();
+
+CharacterCard();
 
 export async function fetchCharacters() {
   const response = await fetch(
@@ -30,50 +33,52 @@ export async function fetchCharacters() {
   }
   try {
     const json = await response.json();
-    console.log(json)
+    
     const results = json;
     //console.log(results);
+    
     return results;
   } catch (error) {
     console.error(error);
     alert("'There's a Network error!");
     return null;
   }
+   
 }
-export async function createMaxPages() {
-  const maxPage = await new Promise(resolve => setTimeout(() => resolve(fetchCharacters()), 5000));
-  //console.log(maxPage.info.pages);
-  return maxPage.info.pages
-  
-
-}
-export async function createArrayWithResults() {
-  const data = await new Promise(resolve => setTimeout(() => resolve(fetchCharacters()), 500));
-  return data.results
-  
-
-}
-CharacterCard();
-
-// previousButton
-prevButton.addEventListener("click", (event) => {
-  if (page < maxPage) {
+ async function loadMaxPages() {
+  const maxPage = await new Promise(resolve => setTimeout(() => resolve(fetchCharacters()), 500));
+ pagination.textContent=`${page} / ${maxPage.info.pages}`
+ 
+ // previousButton
+ prevButton.addEventListener("click", (event) => {
+  if (page < maxPage.info.pages) {
     page--;
     cardContainer.innerHTML=``;
     fetchCharacters();
-    
     CharacterCard();
-    pagination.textContent = page + " / " + maxPage;
+    pagination.textContent = page + " / " + maxPage.info.pages;
   }
 });
 
 //nextButton
 nextButton.addEventListener("click", (event) => {
-  if (page < maxPage) {
+  if (page < maxPage.info.pages) {
     page++;
     cardContainer.innerHTML=``;
     fetchCharacters();
     CharacterCard();
-    pagination.textContent = page + " / " + maxPage;
+    pagination.textContent = page + " / " + maxPage.info.pages;
   }
 });
+}
+
+export async function createArrayWithResults() {
+  const data = await new Promise(resolve => setTimeout(() => resolve(fetchCharacters()), 500));
+  return data.results
+}
+
+
+
+
+
+
