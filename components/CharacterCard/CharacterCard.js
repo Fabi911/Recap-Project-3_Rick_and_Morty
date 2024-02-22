@@ -1,9 +1,11 @@
 import { fetchCharacters } from "../../index.js";
+import { createArrayWithResults } from "../../index.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 
 export async function CharacterCard() {
-  const characters = await fetchCharacters();
+  const characters = await createArrayWithResults();
+  // characters=characters.results
   characters.forEach((character) => {
     const { image, name, status, type, episode } = character;
 

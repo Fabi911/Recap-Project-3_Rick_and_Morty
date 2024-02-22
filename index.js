@@ -14,7 +14,8 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
-let maxPage = 42;
+
+let maxPage= 42 //createMaxPages();
 let page = 1;
 let searchQuery = "";
 pagination.textContent = page + " / " + maxPage;
@@ -29,8 +30,9 @@ export async function fetchCharacters() {
   }
   try {
     const json = await response.json();
-    const results = json.results;
-    console.log(results);
+    console.log(json)
+    const results = json;
+    //console.log(results);
     return results;
   } catch (error) {
     console.error(error);
@@ -38,15 +40,29 @@ export async function fetchCharacters() {
     return null;
   }
 }
-fetchCharacters();
+export async function createMaxPages() {
+  const maxPage = await new Promise(resolve => setTimeout(() => resolve(fetchCharacters()), 5000));
+  //console.log(maxPage.info.pages);
+  return maxPage.info.pages
+  
 
+}
+export async function createArrayWithResults() {
+  const data = await new Promise(resolve => setTimeout(() => resolve(fetchCharacters()), 500));
+  return data.results
+  
+
+}
 CharacterCard();
 
 // previousButton
 prevButton.addEventListener("click", (event) => {
   if (page < maxPage) {
     page--;
+    cardContainer.innerHTML=``;
     fetchCharacters();
+    
+    CharacterCard();
     pagination.textContent = page + " / " + maxPage;
   }
 });
@@ -55,7 +71,9 @@ prevButton.addEventListener("click", (event) => {
 nextButton.addEventListener("click", (event) => {
   if (page < maxPage) {
     page++;
+    cardContainer.innerHTML=``;
     fetchCharacters();
+    CharacterCard();
     pagination.textContent = page + " / " + maxPage;
   }
 });
